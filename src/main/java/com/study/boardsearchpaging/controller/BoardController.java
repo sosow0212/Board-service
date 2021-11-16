@@ -4,6 +4,7 @@ import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -26,10 +27,11 @@ public class BoardController {
         return "";
     }
 
-    // 글 불러오기
+    // 글 전체 불러오기
     @GetMapping("/board/list")
-    public String boardList() {
-
+    public String boardList(Model model) {
+        // model을 통해 html로 데이터를 전송한다.
+        model.addAttribute("list", boardService.boardList());
         return "boardlist";
     }
 }

@@ -3,6 +3,7 @@ package com.study.boardsearchpaging.controller;
 import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -36,10 +37,21 @@ public class BoardController {
     }
 
     // 글 전체 불러오기
+    // 페이징 처리
     @GetMapping("/board/list")
     public String boardList(Model model, @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
         // model을 통해 html로 데이터를 전송한다.
-        model.addAttribute("list", boardService.boardList(pageable));
+
+        Page<Board> list = boardService.boardList(pageable);
+
+        int nowPage = list.getPageable().getPageNumber() + 1; // 0번째부터이니 1페이지부터 출력하려면 1 더한다.
+        int startPage = Math.max(nowPage - 4, 1); // - 값이 나올 수 없게됨.
+        int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 오버페이지가 안되게 설정
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
         return "boardlist";
     }
 

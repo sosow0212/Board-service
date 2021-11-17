@@ -23,9 +23,14 @@ public class BoardController {
 
     // 글쓰기 처리
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board) { // entity는 html로부터 데이터를 통으로 받아올 수 있다.
+    public String boardWritePro(Board board, Model model) {
+        // entity는 html로부터 데이터를 통으로 받아올 수 있다.
+
         boardService.write(board);
-        return "";
+        model.addAttribute("message", "글 작성이 완료되었습니다.");
+        model.addAttribute("message", "글 작성을 실패하였습니다.");
+        model.addAttribute("searchUrl", "/board/list");
+        return "message";
     }
 
     // 글 전체 불러오기
@@ -47,7 +52,7 @@ public class BoardController {
 
     // 특정 게시물 삭제
     @GetMapping("/board/delete")
-    public String  boardDelete(Integer id) {
+    public String boardDelete(Integer id) {
         boardService.boardDelete(id);
         return "redirect:/board/list";
     }

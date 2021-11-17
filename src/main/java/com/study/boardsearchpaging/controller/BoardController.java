@@ -3,6 +3,9 @@ package com.study.boardsearchpaging.controller;
 import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,16 +31,15 @@ public class BoardController {
 
         boardService.write(board);
         model.addAttribute("message", "글 작성이 완료되었습니다.");
-        model.addAttribute("message", "글 작성을 실패하였습니다.");
         model.addAttribute("searchUrl", "/board/list");
         return "message";
     }
 
     // 글 전체 불러오기
     @GetMapping("/board/list")
-    public String boardList(Model model) {
+    public String boardList(Model model, @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
         // model을 통해 html로 데이터를 전송한다.
-        model.addAttribute("list", boardService.boardList());
+        model.addAttribute("list", boardService.boardList(pageable));
         return "boardlist";
     }
 

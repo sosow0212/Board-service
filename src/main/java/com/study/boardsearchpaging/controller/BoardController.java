@@ -39,10 +39,18 @@ public class BoardController {
     // 글 전체 불러오기
     // 페이징 처리
     @GetMapping("/board/list")
-    public String boardList(Model model, @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
+    public String boardList(Model model,
+                            @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword) {
         // model을 통해 html로 데이터를 전송한다.
 
-        Page<Board> list = boardService.boardList(pageable);
+        Page<Board> list = null;
+
+        if(searchKeyword == null) {
+            list = boardService.boardList(pageable);
+        } else {
+            list = boardService.boardSearchList(searchKeyword, pageable);
+        }
 
         int nowPage = list.getPageable().getPageNumber() + 1; // 0번째부터이니 1페이지부터 출력하려면 1 더한다.
         int startPage = Math.max(nowPage - 4, 1); // - 값이 나올 수 없게됨.

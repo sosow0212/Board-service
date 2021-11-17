@@ -20,10 +20,19 @@ public class BoardService {
         boardRepository.save(board);
     }
 
+
     // 게시글 리스트 모두 불러오기
     public Page<Board> boardList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
+
+
+    // 검색 기능
+    public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {
+
+        return boardRepository.findByTitleContaining(searchKeyword, pageable);
+    }
+
 
     // 특정 게시글 불러오기
     public Board boardView(Integer id) {
@@ -35,4 +44,7 @@ public class BoardService {
     public void boardDelete(Integer id) {
         boardRepository.deleteById(id);
     }
+
+
+
 }

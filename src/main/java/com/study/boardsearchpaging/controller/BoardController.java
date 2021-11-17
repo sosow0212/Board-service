@@ -42,4 +42,12 @@ public class BoardController {
         model.addAttribute("board", boardService.boardView(id));
         return "boardview";
     }
+
+
+    // 특정 게시물 삭제
+    @GetMapping("/board/delete")
+    public String  boardDelete(Integer id) {
+        boardService.boardDelete(id);
+        return "redirect:/board/list";
+    }
 }

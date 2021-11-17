@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/reset.css}">
+    <link rel="stylesheet" th:href="@{/css/nav.css}">
     <title>게시물 작성 폼</title>
+
 </head>
 
 <style>
@@ -27,6 +30,17 @@
 
 
 <body>
+<div class="nav">
+    <div class="nav-title">
+        스프링부트 게시판
+    </div>
+    <div class="nav-menu">
+        <a th:href="@{/}">메인화면</a>
+        <a th:href="@{/board/list}">게시글</a>
+        <a th:href="@{/board/write}">글쓰기</a>
+    </div>
+</div>
+
     <div class="layout">
         <form action="/board/writepro" method="post">
             <input name="title" type="text">

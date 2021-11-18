@@ -43,9 +43,9 @@
 </table>
 
 <div class="container mt-5">
-    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" class="container text-center">
         <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page-1}, searchKeyword = ${param.searchKeyword})}"
-           th:text="${page}"></a>
+           th:text="${page}" class="text-center"></a>
         <strong th:if="${page == nowPage}" th:text="${page}" style="color:red"></strong>
     </th:block>
 
@@ -59,36 +59,5 @@
 </div>
 
 
-
-
-<!--<div class="layout">-->
-<!--    <table>-->
-<!--        <thead>-->
-<!--        <tr>-->
-<!--            <th>글번호</th>-->
-<!--            <th>제목</th>-->
-<!--        </tr>-->
-<!--        </thead>-->
-<!--        <tbody>-->
-<!--        <tr th:each="board : ${list}">-->
-<!--            <td th:text="${board.id}">1</td>-->
-<!--            <td>-->
-<!--                <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>-->
-<!--            </td>-->
-<!--        </tr>-->
-<!--        </tbody>-->
-<!--    </table>-->
-<!--    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">-->
-<!--        <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page-1}, searchKeyword = ${param.searchKeyword})}"-->
-<!--           th:text="${page}"></a>-->
-<!--        <strong th:if="${page == nowPage}" th:text="${page}" style="color:red"></strong>-->
-<!--    </th:block>-->
-
-<!--    <form th:action="@{/board/list}" method="get">-->
-<!--        <input type="text" name="searchKeyword">-->
-<!--        <button type="submit">검색</button>-->
-<!--    </form>-->
-<!--    -->
-<!--</div>-->
 </body>
 </html>

@@ -49,11 +49,16 @@
 <div class="layout">
   <h1 class="mb-5 text-center fs-2">게시글 수정</h1>
   <form th:action="@{/board/update/{id}(id=${board.id})}" method="post">
-    <label for="title", class="mb-1">제목</label>
+
+    <label for="writer" class="mb-1">작성자</label>
+    <input class="mb-3" name="writer" id="writer" type="text" th:value="${board.writer}">
+
+    <label for="title" class="mb-1">제목</label>
     <input class="mb-3" name="title" id="title" type="text" th:value="${board.title}">
 
     <label for="content">내용</label>
     <textarea name="content" id="content" th:value="${board.content}"></textarea>
+
     <button type="submit" class="btn btn-primary">수정</button>
   </form>
 </div>

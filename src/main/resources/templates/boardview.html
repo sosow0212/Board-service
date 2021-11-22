@@ -48,6 +48,9 @@
 <div class="layout">
     <h1 class="mb-5 text-center fs-2">게시글</h1>
 
+    <label for="writer" class="mb-1 form-label fs-4">작성자</label>
+    <h1 th:text="${board.writer}" id="writer" class="mb-3">작성자입니다.</h1>
+
     <label for="title" class="mb-1 form-label fs-4">제목</label>
     <h1 th:text="${board.title}" id="title" class="mb-3">제목입니다.</h1>
 

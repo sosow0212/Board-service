@@ -94,6 +94,7 @@ public class BoardController {
         // 기존 업데이트 전 Board
         Board boardTemp = boardService.boardView(id);
         boardTemp.setTitle(board.getTitle());
+//        boardTemp.setWriter(board.getWriter()); // 주석을 풀면 작성자도 바뀌게됨.
         boardTemp.setContent(board.getContent());
         boardService.write(boardTemp);
         return "redirect:/board/list";

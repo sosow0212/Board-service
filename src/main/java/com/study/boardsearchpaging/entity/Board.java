@@ -16,9 +16,10 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String writer;
+
     private String title;
 
     private String content;
 
-    private String writer;
 }

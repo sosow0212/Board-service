@@ -27,8 +27,9 @@
 <table class="table table-striped container mt-3">
     <thead>
     <tr>
-        <th scope="col" >번호</th>
+        <th scope="col">번호</th>
         <th scope="col">제목</th>
+        <th scope="col">작성자</th>
     </tr>
     </thead>
     <tbody>
@@ -36,6 +37,9 @@
         <th scope="row" th:text="${board.id}">글번호1</th>
         <td>
             <a th:text="${board.title}" th:href="@{/board/view(id=${board.id})}">제목입니다.</a>
+        </td>
+        <td>
+            <p th:text="${board.writer}">작성자</p>
         </td>
     </tr>
     </tbody>

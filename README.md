@@ -2,7 +2,9 @@
 - 페이징 처리
 - 검색 기능 추가
 - MariaDB 사용
-- Thymeleaf, MVC
+- Thymeleaf
+- Spring Security
+- 세션 이용한 사용자 분리
 <hr>
 
 ### 추후 업데이트 내용

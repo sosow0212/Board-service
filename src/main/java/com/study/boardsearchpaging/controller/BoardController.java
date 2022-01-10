@@ -65,8 +65,8 @@ public class BoardController {
 
 
     // 상세페이지 보기
-    @GetMapping("board/view") // localhost:8080/board/view?id=1
-    public String boardView(Model model, Integer id) {
+    @GetMapping("board/view/{id}") // localhost:8080/board/view?id=1
+    public String boardView(@PathVariable("id") Integer id, Model model) {
         model.addAttribute("board", boardService.boardView(id));
         return "boardview";
     }

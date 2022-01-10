@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -17,6 +19,11 @@ public class BoardService {
 
     // 글 작성 및 저장
     public void write(Board board) {
+
+        // LocalDateTime 을 yyyyMMdd 로 변경
+
+
+
         boardRepository.save(board);
     }
 

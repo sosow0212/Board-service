@@ -16,7 +16,7 @@ public class Board {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String writer; // 글 작성자 이름
+    private String writer; // 글 작성자 이름 (추후에 작성 글 목록 확인할 때 필요함)
 
     private String title;
 

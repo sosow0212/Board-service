@@ -1,5 +1,6 @@
 package com.study.boardsearchpaging.controller;
 
+import com.study.boardsearchpaging.config.auth.PrincipalDetails;
 import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +23,8 @@ public class BoardController {
 
     // 글쓰기 화면
     @GetMapping("/board/write")
-    public String boardWriteForm() {
+    public String boardWriteForm(Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        model.addAttribute("loginUser", principalDetails);
         return "boardwrite";
     }
 

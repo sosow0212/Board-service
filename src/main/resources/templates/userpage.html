@@ -63,18 +63,18 @@
     </thead>
     <tbody>
 
-<!--    <tr th:each="board : ${list}">-->
-<!--        <th scope="row" th:text="${board.id}">글번호1</th>-->
-<!--        <td>-->
-<!--            <a th:text="${board.title}" th:href="@{/board/view/{id}(id=${board.id})}">제목입니다.</a>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <p th:text="${board.writer}">작성자</p>-->
-<!--        </td>-->
-<!--        <td>-->
-<!--            <p th:text="${board.createDate}">작성시간</p>-->
-<!--        </td>-->
-<!--    </tr>-->
+    <tr th:each="board : ${userBoard}">
+        <th scope="row" th:text="${board.id}">글번호1</th>
+        <td>
+            <a th:text="${board.title}" th:href="@{/board/view/{id}(id=${board.id})}">제목입니다.</a>
+        </td>
+        <td>
+            <p th:text="${board.writer}">작성자</p>
+        </td>
+        <td>
+            <p th:text="${board.createDate}">작성시간</p>
+        </td>
+    </tr>
 
     </tbody>
 </table>

@@ -14,11 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 public class UserPageController {
 
-    private static UserService userService;
+    private final UserService userService;
 
     @GetMapping("/user/{id}")
     public String userPage(Model model, @PathVariable("id") Integer id) {
-        User loginUser = userService.findUserById(id);
+        User loginUser = userService.findById(id);
         System.out.println(loginUser);
         model.addAttribute("user", loginUser);
         return "userpage";

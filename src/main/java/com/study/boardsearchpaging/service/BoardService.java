@@ -2,20 +2,17 @@ package com.study.boardsearchpaging.service;
 
 import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.repository.BoardRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class BoardService {
 
-    @Autowired // 이 어노테이션은 스프링빈이 알아서 읽어와서 주입을해준다. -> 디펜던시 인젝션
-    private BoardRepository boardRepository;
+    private final BoardRepository boardRepository;
 
     // 글 작성 및 저장
     public void write(Board board) {

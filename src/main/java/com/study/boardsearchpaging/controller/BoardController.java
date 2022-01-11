@@ -3,6 +3,7 @@ package com.study.boardsearchpaging.controller;
 import com.study.boardsearchpaging.config.auth.PrincipalDetails;
 import com.study.boardsearchpaging.entity.Board;
 import com.study.boardsearchpaging.service.BoardService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,11 +16,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+@RequiredArgsConstructor
 @Controller
 public class BoardController {
 
-    @Autowired
-    private BoardService boardService;
+    private final BoardService boardService;
 
     // 글쓰기 화면
     @GetMapping("/board/write")

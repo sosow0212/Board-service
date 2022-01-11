@@ -11,7 +11,8 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public User findById(int id) {
-        return userRepository.findById(id);
+    public User findUserById(int id) {
+        User findUser = userRepository.findById(id);
+        return findUser;
     }
 }

@@ -18,7 +18,8 @@ public class UserPageController {
 
     @GetMapping("/user/{id}")
     public String userPage(Model model, @PathVariable("id") Integer id) {
-        User loginUser = userService.findById(id);
+        User loginUser = userService.findUserById(id);
+        System.out.println(loginUser);
         model.addAttribute("user", loginUser);
         return "userpage";
     }

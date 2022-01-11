@@ -21,11 +21,10 @@ public class User {
     private int id;
 
     @Column(unique = true) // username 중목 안됨
-    private String username;
+    private String username; // ex) sosow0212
     private String password;
-    private String name;
+    private String name; // 추후에 board 의 writer 와 연결
     private String email;
-
     private String role; // 권한
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")

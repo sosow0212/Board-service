@@ -15,14 +15,10 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
+    private String title;
+    private String content;
     private String writer; // 글 작성자 이름 (추후에 작성 글 목록 확인할 때 필요함)
 
-    private String title;
-
-    private String content;
-
-    private String nickname; // 글 작성자 닉네임
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜

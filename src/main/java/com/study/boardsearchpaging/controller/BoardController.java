@@ -44,7 +44,8 @@ public class BoardController {
     @GetMapping({"/board/list", "/"})
     public String boardList(Model model,
                             @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable,
-                            String searchKeyword) {
+                            String searchKeyword,
+                            @AuthenticationPrincipal PrincipalDetails principalDetails) {
         // model을 통해 html로 데이터를 전송한다.
 
         Page<Board> list = null;
@@ -59,6 +60,7 @@ public class BoardController {
         int startPage = Math.max(nowPage - 4, 1); // - 값이 나올 수 없게됨.
         int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 오버페이지가 안되게 설정
 
+        model.addAttribute("user", principalDetails.getUser());
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
@@ -69,8 +71,9 @@ public class BoardController {
 
     // 상세페이지 보기
     @GetMapping("board/view/{id}") // localhost:8080/board/view?id=1
-    public String boardView(@PathVariable("id") Integer id, Model model) {
+    public String boardView(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         model.addAttribute("board", boardService.boardView(id));
+        model.addAttribute("user", principalDetails.getUser());
         return "boardview";
     }
 

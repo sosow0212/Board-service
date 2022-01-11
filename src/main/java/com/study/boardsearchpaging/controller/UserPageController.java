@@ -1,10 +1,8 @@
 package com.study.boardsearchpaging.controller;
 
-import com.study.boardsearchpaging.config.auth.PrincipalDetails;
 import com.study.boardsearchpaging.entity.User;
 import com.study.boardsearchpaging.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

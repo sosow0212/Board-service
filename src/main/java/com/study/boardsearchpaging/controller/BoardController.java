@@ -41,7 +41,7 @@ public class BoardController {
 
     // 글 전체 불러오기
     // 페이징 처리
-    @GetMapping("/board/list")
+    @GetMapping({"/board/list", "/"})
     public String boardList(Model model,
                             @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable,
                             String searchKeyword) {

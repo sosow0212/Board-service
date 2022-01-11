@@ -31,9 +31,10 @@ public class BoardController {
 
     // 글쓰기 처리
     @PostMapping("/board/writepro")
-    public String boardWritePro(Board board, Model model) {
+    public String boardWritePro(Board board, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         // entity는 html로부터 데이터를 통으로 받아올 수 있다.
 
+        board.setUser(principalDetails.getUser());
         boardService.write(board);
         model.addAttribute("message", "글 작성이 완료되었습니다.");
         model.addAttribute("searchUrl", "/board/list");

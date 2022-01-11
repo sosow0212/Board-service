@@ -1,6 +1,8 @@
 package com.study.boardsearchpaging.entity;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -8,7 +10,8 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Data
+@Getter
+@Setter
 // db에 있는 table을 의미한다.
 public class Board {
 
@@ -19,6 +22,9 @@ public class Board {
     private String content;
     private String writer; // 글 작성자 이름 (추후에 작성 글 목록 확인할 때 필요함)
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User user;
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜

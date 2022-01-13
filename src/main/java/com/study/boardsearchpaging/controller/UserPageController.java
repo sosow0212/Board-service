@@ -30,7 +30,7 @@ public class UserPageController {
         List<Board> allBoard = boardRepository.findAll();
         List<Board> userBoard = new ArrayList<>();
         for(Board board : allBoard) {
-            if(board.getUser().getId() == principalDetails.getUser().getId()) {
+            if(board.getUser().getId() == id) {
                 userBoard.add(board);
                 System.out.println(board);
             }

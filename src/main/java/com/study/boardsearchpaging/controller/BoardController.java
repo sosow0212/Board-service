@@ -2,6 +2,7 @@ package com.study.boardsearchpaging.controller;
 
 import com.study.boardsearchpaging.config.auth.PrincipalDetails;
 import com.study.boardsearchpaging.entity.Board;
+import com.study.boardsearchpaging.entity.User;
 import com.study.boardsearchpaging.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,9 +83,14 @@ public class BoardController {
 
     // 특정 게시물 삭제
     @GetMapping("/board/delete")
-    public String boardDelete(Integer id) {
-        boardService.boardDelete(id);
-        return "redirect:/board/list";
+    public String boardDelete(Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = boardService.boardView(id).getUser(); // 글을 쓴 유저 찾기
+        if(principalDetails.getUser().getId() == user.getId()) {
+            boardService.boardDelete(id);
+            return "redirect:/board/list";
+        } else {
+            return "redirect:/board/list";
+        }
     }
 
 

@@ -7,6 +7,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @RequiredArgsConstructor
 @Service
@@ -30,6 +32,9 @@ public class BoardService {
         return boardRepository.findAll(pageable);
     }
 
+    public List<Board> allBoard() {
+        return boardRepository.findAll();
+    }
 
     // 검색 기능
     public Page<Board> boardSearchList(String searchKeyword, Pageable pageable) {

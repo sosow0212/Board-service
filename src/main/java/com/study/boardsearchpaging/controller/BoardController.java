@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Controller
 public class BoardController {
@@ -46,29 +48,39 @@ public class BoardController {
     // 페이징 처리
     @GetMapping({"/board/list", "/"})
     public String boardList(Model model,
-                            @PageableDefault(page=0, size=10, sort="id", direction = Sort.Direction.DESC) Pageable pageable,
+                            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC) Pageable pageable,
                             String searchKeyword,
                             @AuthenticationPrincipal PrincipalDetails principalDetails) {
-        // model을 통해 html로 데이터를 전송한다.
 
-        Page<Board> list = null;
+        if (principalDetails.getUser().getRole().equals("ROLE_ADMIN")) {
+            // 등급이 ROLE_ADMIN일 경우
+            // == "등급" 이 아니라 .equals() 를 사용해야함!!
+            List<Board> allBoard = boardService.allBoard();
+            model.addAttribute("user", principalDetails.getUser());
+            model.addAttribute("allBoard", allBoard);
+            return "adminpage";
 
-        if(searchKeyword == null) {
-            list = boardService.boardList(pageable);
         } else {
-            list = boardService.boardSearchList(searchKeyword, pageable);
+            // 등급이 ROLE_USER 일 경우
+            Page<Board> list = null;
+
+            if (searchKeyword == null) {
+                list = boardService.boardList(pageable);
+            } else {
+                list = boardService.boardSearchList(searchKeyword, pageable);
+            }
+
+            int nowPage = list.getPageable().getPageNumber() + 1; // 0번째부터이니 1페이지부터 출력하려면 1 더한다.
+            int startPage = Math.max(nowPage - 4, 1); // - 값이 나올 수 없게됨.
+            int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 오버페이지가 안되게 설정
+
+            model.addAttribute("user", principalDetails.getUser());
+            model.addAttribute("list", list);
+            model.addAttribute("nowPage", nowPage);
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+            return "boardlist";
         }
-
-        int nowPage = list.getPageable().getPageNumber() + 1; // 0번째부터이니 1페이지부터 출력하려면 1 더한다.
-        int startPage = Math.max(nowPage - 4, 1); // - 값이 나올 수 없게됨.
-        int endPage = Math.min(nowPage + 5, list.getTotalPages()); // 오버페이지가 안되게 설정
-
-        model.addAttribute("user", principalDetails.getUser());
-        model.addAttribute("list", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        return "boardlist";
     }
 
 
@@ -85,7 +97,7 @@ public class BoardController {
     @GetMapping("/board/delete")
     public String boardDelete(Integer id, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = boardService.boardView(id).getUser(); // 글을 쓴 유저 찾기
-        if(principalDetails.getUser().getId() == user.getId()) {
+        if (principalDetails.getUser().getId() == user.getId()) {
             boardService.boardDelete(id);
             return "redirect:/board/list";
         } else {
@@ -107,7 +119,7 @@ public class BoardController {
     @PostMapping("/board/update/{id}")
     public String boardUpdate(@PathVariable("id") Integer id, Board board, @AuthenticationPrincipal PrincipalDetails principalDetails) {
         User user = boardService.boardView(id).getUser(); // 기존에 글을 쓴 유저 찾기
-        if(user.getId() == principalDetails.getUser().getId()) {
+        if (user.getId() == principalDetails.getUser().getId()) {
             // 기존 업데이트 전 Board
             Board boardTemp = boardService.boardView(id);
             boardTemp.setTitle(board.getTitle());

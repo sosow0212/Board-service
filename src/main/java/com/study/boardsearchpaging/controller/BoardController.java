@@ -105,13 +105,18 @@ public class BoardController {
 
     // 게시글 수정 처리
     @PostMapping("/board/update/{id}")
-    public String boardUpdate(@PathVariable("id") Integer id, Board board) {
-        // 기존 업데이트 전 Board
-        Board boardTemp = boardService.boardView(id);
-        boardTemp.setTitle(board.getTitle());
-//        boardTemp.setWriter(board.getWriter()); // 주석을 풀면 작성자도 바뀌게됨.
-        boardTemp.setContent(board.getContent());
-        boardService.write(boardTemp);
-        return "redirect:/board/list";
+    public String boardUpdate(@PathVariable("id") Integer id, Board board, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        User user = boardService.boardView(id).getUser(); // 기존에 글을 쓴 유저 찾기
+        if(user.getId() == principalDetails.getUser().getId()) {
+            // 기존 업데이트 전 Board
+            Board boardTemp = boardService.boardView(id);
+            boardTemp.setTitle(board.getTitle());
+            boardTemp.setContent(board.getContent());
+            boardService.write(boardTemp);
+            return "redirect:/board/list";
+        } else {
+            return "redirect:/board/list";
+        }
+
     }
 }

@@ -90,13 +90,17 @@ public class BoardController {
     @PostMapping("/board/{boardId}/comment/{userId}")
     public String commentProcess(Model model, String text, @PathVariable("boardId") Integer boardId, @PathVariable("userId") Integer userId ,@AuthenticationPrincipal PrincipalDetails principalDetails) {
         commentService.saveComment(boardId, userId, text);
-        return "redirect:/";
+
+        return "redirect:/board/view/{boardId}";
     }
 
 
     // 상세페이지 보기
     @GetMapping("board/view/{id}") //
     public String boardView(@PathVariable("id") Integer id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+        List<Comment> comments = commentService.findComment(id);
+
+        model.addAttribute("comments", comments);
         model.addAttribute("board", boardService.boardView(id));
         model.addAttribute("user", principalDetails.getUser());
         return "boardview";

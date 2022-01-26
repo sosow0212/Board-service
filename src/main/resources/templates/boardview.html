@@ -95,6 +95,9 @@
                         <a class="btn btn-outline-primary btn-sm ml-1 shadow-none" th:href="@{/}">Cancel</a>
                     </div>
                 </div>
+                <tr th:each="comment : ${comments}">
+                    <li th:text="${comment.text}"></li>
+                </tr>
             </div>
         </div>
     </div>

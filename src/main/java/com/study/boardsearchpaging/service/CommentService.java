@@ -9,6 +9,8 @@ import com.study.boardsearchpaging.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class CommentService {
@@ -23,5 +25,12 @@ public class CommentService {
 
         Comment comment = new Comment(board, commentWriter, text);
         commentRepository.save(comment);
+    }
+
+    public List<Comment> findComment(int boardId) {
+        if(commentRepository.findCommentsByBoardId(boardId) == null) {
+            return null;
+        }
+        return commentRepository.findCommentsByBoardId(boardId);
     }
 }

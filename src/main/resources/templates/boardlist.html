@@ -34,8 +34,8 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="board : ${list}">
-        <th scope="row" th:text="${board.id}">글번호1</th>
+    <tr th:each="board, i : ${list}">
+        <th scope="row" th:text="${i.count}">글번호1</th>
         <td>
             <a th:text="${board.title}" th:href="@{/board/view/{id}(id=${board.id})}">제목입니다.</a>
         </td>
@@ -50,7 +50,7 @@
 </table>
 
 <div class="container mt-5">
-    <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}" class="container text-center">
+    <th:block th:each="page: ${#numbers.sequence(startPage, endPage)}" class="container text-center">
         <a th:if="${page != nowPage}" th:href="@{/board/list(page = ${page-1}, searchKeyword = ${param.searchKeyword})}"
            th:text="${page}" class="text-center"></a>
         <strong th:if="${page == nowPage}" th:text="${page}" style="color:red"></strong>

@@ -1,17 +1,20 @@
 package com.study.boardsearchpaging.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Entity // DB에 테이블 자동 생성
 // db에 있는 table을 의미한다.
 public class Board {
 
@@ -25,6 +28,9 @@ public class Board {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user;
+
+    @OneToMany(mappedBy = "board")
+    private List<Comment> comment = new ArrayList<>();
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜

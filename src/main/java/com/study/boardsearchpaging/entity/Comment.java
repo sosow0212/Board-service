@@ -14,24 +14,18 @@ import java.util.List;
 @Getter
 @Setter
 @Entity // DB에 테이블 자동 생성
-public class User {
-
+public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(unique = true) // username 중목 안됨
-    private String username; // ex) sosow0212
-    private String password;
-    private String name; // 추후에 board 의 writer 와 연결
-    private String email;
-    private String role; // 권한
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="board_id")
+    private Board board;
 
-    @OneToMany(mappedBy = "user")
-    private List<Board> boards = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user")
-    private List<Comment> comments = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="user_id")
+    private User user; // 댓글 작성자
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜

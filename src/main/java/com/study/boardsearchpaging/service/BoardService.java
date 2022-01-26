@@ -21,8 +21,6 @@ public class BoardService {
 
         // LocalDateTime 을 yyyyMMdd 로 변경
 
-
-
         boardRepository.save(board);
     }
 

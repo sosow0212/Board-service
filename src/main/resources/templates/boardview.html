@@ -87,9 +87,9 @@
                     </div>
                 </div>
                 <div class="bg-light p-2">
-                    <form id="commentForm" class="d-flex flex-row align-items-start" action="/board/commnet" method="post">
+                    <form id="commentForm" class="d-flex flex-row align-items-start" th:action="@{/board/{boardId}/comment/{userId}(boardId=${board.id}, userId=${user.id})}" method="post">
                         <img class="rounded-circle" src="https://i.imgur.com/RpzrMR2.jpg" width="40">
-                        <textarea name="comment" id="comment" class="form-control ml-1 shadow-none textarea"></textarea></form>
+                        <textarea name="text" id="text" class="form-control ml-1 shadow-none textarea"></textarea></form>
                     <div class="mt-2 text-right">
                         <button class="btn btn-primary btn-sm shadow-none" type="submit" form="commentForm">Post comment</button>
                         <a class="btn btn-outline-primary btn-sm ml-1 shadow-none" th:href="@{/}">Cancel</a>

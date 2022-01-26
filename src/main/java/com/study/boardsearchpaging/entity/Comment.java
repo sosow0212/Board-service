@@ -21,11 +21,13 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="board_id")
-    private Board board;
+    private Board board; // 댓글이 달릴 게시물
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="user_id")
     private User user; // 댓글 작성자
+
+    private String text; // 댓글 내용
 
     @DateTimeFormat(pattern = "yyyy-mm-dd")
     private LocalDate createDate; // 날짜
@@ -33,5 +35,11 @@ public class Comment {
     @PrePersist // DB에 INSERT 되기 직전에 실행. 즉 DB에 값을 넣으면 자동으로 실행됨
     public void createDate() {
         this.createDate = LocalDate.now();
+    }
+
+    public Comment(Board board, User user, String text) {
+        this.board = board;
+        this.user = user;
+        this.text = text;
     }
 }

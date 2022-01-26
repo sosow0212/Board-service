@@ -2,8 +2,10 @@ package com.study.boardsearchpaging.controller;
 
 import com.study.boardsearchpaging.config.auth.PrincipalDetails;
 import com.study.boardsearchpaging.entity.Board;
+import com.study.boardsearchpaging.entity.Comment;
 import com.study.boardsearchpaging.entity.User;
 import com.study.boardsearchpaging.service.BoardService;
+import com.study.boardsearchpaging.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +26,7 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final CommentService commentService;
 
     // 글쓰기 화면
     @GetMapping("/board/write")
@@ -83,6 +86,13 @@ public class BoardController {
         }
     }
 
+    // 댓글 처리
+    @PostMapping("/board/{boardId}/comment/{userId}")
+    public String commentProcess(Model model, String text, @PathVariable("boardId") Integer boardId, @PathVariable("userId") Integer userId ,@AuthenticationPrincipal PrincipalDetails principalDetails) {
+        commentService.saveComment(boardId, userId, text);
+        return "redirect:/";
+    }
+
 
     // 상세페이지 보기
     @GetMapping("board/view/{id}") //
@@ -129,6 +139,5 @@ public class BoardController {
         } else {
             return "redirect:/board/list";
         }
-
     }
 }

@@ -17,5 +17,6 @@ public interface BoardRepository extends JpaRepository<Board, Integer> {
     // --> 컬럼에서 키워드가 포함된 것을 찾겠다.
     // 즉 키워드가 포함된 모든 데이터를 검색하는 것임
 
+    Board findById(int id);
 
 }

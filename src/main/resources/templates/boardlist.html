@@ -19,7 +19,7 @@
     <div class="nav-menu" sec:authorize="hasRole('ADMIN')">
         <a th:href="@{/board/list}">게시판</a>
         <a th:href="@{/board/write}">글쓰기</a>
-        <a th:href="@{/user/{id}(id=${user.id})}">프로필</a>
+        <a th:href="@{/user/{id}(id=${user.id})}" th:text="|${user.getName()} 프로필|">~회원님</a>
         <a th:href="@{/logout}">로그아웃</a>
         <a href="">어드민</a>
     </div>
@@ -28,7 +28,7 @@
     <div class="nav-menu" sec:authorize="hasRole('ROLE_USER')">
         <a th:href="@{/board/list}">게시판</a>
         <a th:href="@{/board/write}">글쓰기</a>
-        <a th:href="@{/user/{id}(id=${user.id})}">프로필</a>
+        <a th:href="@{/user/{id}(id=${user.id})}" th:text="|${user.getName()} 프로필|">~회원님</a>
         <a th:href="@{/logout}">로그아웃</a>
         <a href="">일반 유저</a>
     </div>
